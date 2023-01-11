@@ -13,7 +13,27 @@ else()
 	set(BUILD_VERSION "Regular")
 endif()
 
-message("Will build ${BUILD_VERSION} type")
+#application version
+set(MAJOR_VERSION 0)
+set(MINOR_VERSION 0)
+set(PATCH_VERSION 1)
+set(BUILD_VERSION "\"${BUILD_VERSION}\"") #add some quotes to pacify the macro preprocessor
+
+if(${CMAKE_VERSION} VERSION_LESS "3.22.0")
+
+	add_definitions(-DMAJOR_VERSION=${MAJOR_VERSION})
+	add_definitions(-DMINOR_VERSION=${MINOR_VERSION})
+	add_definitions(-DPATCH_VERSION=${PATCH_VERSION})
+	add_definitions(-DBUILD_VERSION=${BUILD_VERSION})
+else()
+
+	add_compile_definitions(MAJOR_VERSION=${MAJOR_VERSION})
+	add_compile_definitions(MINOR_VERSION=${MINOR_VERSION})
+	add_compile_definitions(PATCH_VERSION=${PATCH_VERSION})
+	add_compile_definitions(BUILD_VERSION=${BUILD_VERSION})
+endif()
+
+message("will build ${MAJOR_VERSION}.${MINOR_VERSION}.${PATCH_VERSION}-${BUILD_VERSION}")
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -45,11 +65,11 @@ add_library(dansdl2 STATIC IMPORTED)
 add_library(dfw STATIC IMPORTED)
 
 #If the libraries are not installed, tell them where they are.
-set_target_properties(tools PROPERTIES IMPORTED_LOCATION /usr/local/lib/libtools.a)
-set_target_properties(lm PROPERTIES IMPORTED_LOCATION /usr/local/lib/liblm.a)
-set_target_properties(dansdl2 PROPERTIES IMPORTED_LOCATION /usr/local/lib/libdansdl2.a)
-set_target_properties(ldtools PROPERTIES IMPORTED_LOCATION /usr/local/lib/libldtools.a)
-set_target_properties(dfw PROPERTIES IMPORTED_LOCATION /usr/local/lib/libdfw.a)
+set_target_properties(tools PROPERTIES IMPORTED_LOCATION /usr/local/lib/libtools.so)
+set_target_properties(lm PROPERTIES IMPORTED_LOCATION /usr/local/lib/liblm.so)
+set_target_properties(dansdl2 PROPERTIES IMPORTED_LOCATION /usr/local/lib/libdansdl2.so)
+set_target_properties(ldtools PROPERTIES IMPORTED_LOCATION /usr/local/lib/libldtools.so)
+set_target_properties(dfw PROPERTIES IMPORTED_LOCATION /usr/local/lib/libdfw.so)
 
 #binary...
 if(${BUILD_APPIMAGE})

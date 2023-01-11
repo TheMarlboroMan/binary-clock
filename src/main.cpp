@@ -13,6 +13,10 @@
 #include <ldt/sdl_tools.h>
 #include <ldt/log.h>
 
+#include <ldt/lib.h>
+#include <ldtools/lib.h>
+#include <dfw/lib.h>
+
 #include <stdexcept>
 #include <unistd.h>
 #include <stdlib.h>
@@ -30,6 +34,17 @@ int main(int argc, char ** argv)
 
 	//Argument controller.
 	tools::arg_manager carg(argc, argv);
+
+	if(carg.exists("-v")) {
+
+		std::cout<<"binary-clock "
+			<<MAJOR_VERSION<<"."<<MINOR_VERSION<<"."<<PATCH_VERSION<<"-"<<BUILD_VERSION
+			<<" built on "<<__DATE__<<" "<<__TIME__<<std::endl
+			<<"libdansdl2 version: "<<ldt::get_lib_version()<<std::endl
+			<<"ldtools version: "<<ldtools::get_lib_version()<<std::endl
+			<<"dfw version: "<<dfw::get_lib_version()<<std::endl;
+		return 0;
+	}
 
 	//Init application log.
 	std::string log_file=env.build_user_path("log.log");
