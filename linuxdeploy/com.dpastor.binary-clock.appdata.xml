@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>com.dpastor.binary-clock</id>
+
+  <name>Binary Clock</name>
+  <summary>Simple binary clock</summary>
+
+  <metadata_license>MIT</metadata_license>
+  <project_license>Beerware</project_license>
+
+  <description>
+    <p>
+		A desktop binary clock.
+    </p>
+  </description>
+
+  <launchable type="desktop-id">binary-clock.desktop</launchable>
+  <screenshots>
+	<!--
+    <screenshot type="default">
+      <image>http://caballorenoir.net/hosted/games/images/pigsncows-title.png</image>
+    </screenshot>
+    <screenshot>
+      <image>http://caballorenoir.net/hosted/games/images/pigsncows-gameplay1.png</image>
+    </screenshot>
+    <screenshot>
+      <image>http://caballorenoir.net/hosted/games/images/pigsncows-gameplay2.png</image>
+    </screenshot>
+  </screenshots>
+	-->
+</component>

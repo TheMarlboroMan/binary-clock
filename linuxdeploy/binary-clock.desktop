@@ -1,0 +1,8 @@
+[Desktop Entry]
+Categories=Utility
+Icon=binary-clock
+Name=Binary Clock
+Type=Application
+Exec=binary-clock
+
+Name[en_US]=binary-clock.desktop
