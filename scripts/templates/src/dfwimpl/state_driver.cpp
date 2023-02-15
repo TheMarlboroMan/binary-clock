@@ -10,7 +10,7 @@
 using namespace dfwimpl;
 
 state_driver::state_driver(dfw::kernel& kernel, dfwimpl::config& c)
-	:state_driver_interface(controller::t_states::state_main),
+	:state_driver_interface(controller::t_states::state_min),
 	config(c), log(kernel.get_log()) {
 
 	lm::log(log).info()<<"setting state check function..."<<std::endl;
@@ -42,13 +42,11 @@ state_driver::state_driver(dfw::kernel& kernel, dfwimpl::config& c)
 
 void state_driver::prepare_video(dfw::kernel& kernel) {
 
-	int dimension=config.int_from_path("app:dimension");
-
 	kernel.init_video_system({
-		15*dimension,
-		7*dimension,
-		15*dimension,
-		7*dimension,
+		config.int_from_path("video:window_w_px"),
+		config.int_from_path("video:window_h_px"),
+		config.int_from_path("video:window_w_logical"),
+		config.int_from_path("video:window_h_logical"),
 		config.string_from_path("video:window_title"),
 		config.bool_from_path("video:window_show_cursor"),
 		config.get_screen_vsync()
@@ -56,7 +54,6 @@ void state_driver::prepare_video(dfw::kernel& kernel) {
 
 	auto& screen=kernel.get_screen();
 	screen.set_fullscreen(config.bool_from_path("video:fullscreen"));
-	screen.set_borders(config.bool_from_path("video:borders"));
 }
 
 void state_driver::prepare_audio(dfw::kernel& kernel) {
@@ -76,7 +73,11 @@ void state_driver::prepare_input(dfw::kernel& kernel) {
 	using namespace dfw;
 
 	std::vector<input_pair> pairs{
-		{{input_description::types::keyboard, SDL_SCANCODE_ESCAPE, 0}, input::escape}
+		{{input_description::types::keyboard, SDL_SCANCODE_ESCAPE, 0}, input::escape},
+		{input_description_from_config_token(config.token_from_path("input:left")), input::left},
+		{input_description_from_config_token(config.token_from_path("input:right")), input::right},
+		{input_description_from_config_token(config.token_from_path("input:up")), input::up},
+		{input_description_from_config_token(config.token_from_path("input:down")), input::down}
 	};
 
 	kernel.init_input_system(pairs);
@@ -100,23 +101,6 @@ void state_driver::register_controllers(dfw::kernel& /*kernel*/) {
 		register_controller(_i, *_ptr);
 	};
 
-	int dimension=config.int_from_path("app:dimension");
-	ldv::rgba_color color_on=ldv::rgba8(
-		config.int_from_path("app:on_color_r"),
-		config.int_from_path("app:on_color_g"),
-		config.int_from_path("app:on_color_b"),
-		255
-	);
-
-	ldv::rgba_color color_off=ldv::rgba8(
-		config.int_from_path("app:off_color_r"),
-		config.int_from_path("app:off_color_g"),
-		config.int_from_path("app:off_color_b"),
-		255
-	);
-
-
-	reg(c_main, controller::t_states::state_main, new controller::main(log, dimension, color_on, color_off));
 	//[new-controller-mark]
 }
 

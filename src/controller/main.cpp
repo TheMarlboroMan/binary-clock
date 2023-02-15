@@ -12,12 +12,14 @@ using namespace controller;
 
 main::main(
 	lm::logger& plog,
-	int _dim
+	int _dim,
+	ldv::rgba_color _color_on,
+	ldv::rgba_color _color_off
 )
 	:log(plog),
-	digit_hours{_dim,_dim, _dim, _dim, ldv::rgba8(0, 0, 190, 255), ldv::rgba8(0, 0, 60, 255)},
-	digit_minutes{6*_dim, _dim, _dim, _dim, ldv::rgba8(0, 0, 190, 255), ldv::rgba8(0, 0, 60, 255)},
-	digit_seconds{11*_dim, _dim, _dim, _dim, ldv::rgba8(0, 0, 190, 255), ldv::rgba8(0, 0, 60, 255)}
+	digit_hours{_dim,_dim, _dim, _dim, _color_on, _color_off},
+	digit_minutes{6*_dim, _dim, _dim, _dim, _color_on, _color_off},
+	digit_seconds{11*_dim, _dim, _dim, _dim, _color_on, _color_off}
 {
 
 }

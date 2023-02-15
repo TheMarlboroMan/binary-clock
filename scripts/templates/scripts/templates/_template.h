@@ -2,8 +2,6 @@
 
 //local
 #include "states.h"
-#include "include/app/time.h"
-#include "include/app/digit.h"
 
 //framework
 #include <dfw/controller_interface.h>
@@ -16,12 +14,12 @@
 
 namespace controller {
 
-class main:
+class _template:
 	public dfw::controller_interface {
 
 	public:
 
-								main(lm::logger&, int, ldv::rgba_color, ldv::rgba_color);
+								_template(lm::logger&);
 	virtual void 				loop(dfw::input&, const dfw::loop_iteration_data&);
 	virtual void 				draw(ldv::screen&, int);
 	virtual void 				awake(dfw::input& /*input*/) {}
@@ -34,10 +32,6 @@ class main:
 	lm::logger&					log;
 
 	//properties
-	app::time                   time;
-	app::digit                  digit_hours,
-	                            digit_minutes,
-	                            digit_seconds;
 };
 
 }

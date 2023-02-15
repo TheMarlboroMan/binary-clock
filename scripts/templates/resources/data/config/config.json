@@ -1,12 +1,6 @@
 {
 	"app":{
-		"dimension":20,
-		"on_color_r": 100,
-		"on_color_g": 217,
-		"on_color_b": 209,
-		"off_color_r": 10,
-		"off_color_g": 69,
-		"off_color_b": 65
+		"dummy":true
 	}, 
 	"audio":{
 		"audio_buffers":1024, 
@@ -17,6 +11,18 @@
 		"sound_volume":127
 	}, 
 	"input":{
+		"down":[
+			0, 0, 81
+		], 
+		"left":[
+			0, 0, 80
+		], 
+		"right":[
+			0, 0, 79
+		], 
+		"up":[
+			0, 0, 82
+		]
 	}, 
 	"meta":{
 		"v":1
@@ -24,9 +30,12 @@
 	"video":{
 		"double_buffer":1, 
 		"fullscreen":false, 
-		"borders":false,
 		"vsync":false, 
-		"window_show_cursor":false, 
-		"window_title":"Binary clock" 
+		"window_h_logical":500, 
+		"window_h_px":500, 
+		"window_show_cursor":true, 
+		"window_title":"A test", 
+		"window_w_logical":700, 
+		"window_w_px":700
 	}
 }
